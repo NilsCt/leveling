@@ -94,7 +94,7 @@ abstract class InteractionContext(private val genericEvent: GenericInteractionCr
      Si le membre peut rajouter la permission manquante manage roles avec le bouton invite
      Même si le membre peut ajouter des bots, s'il n'a pas la permission de gérer les roles, il ne peut la donner.
      */
-    fun canUseRoleButton() = botCantManageRole() && canAddBot() && canManageRole()
+//    fun canUseRoleButton() = botCantManageRole() && canAddBot() && canManageRole()
 
     fun reply(content: String = ""): ReplyCallbackAction {
         return when (genericEvent) {

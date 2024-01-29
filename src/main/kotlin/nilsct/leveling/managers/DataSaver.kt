@@ -432,30 +432,30 @@ class DataSaver {
      (Supprime les données actuelles pour les remplacer par celle du fichier fourni)
      Comme un load partiel, le fichier peut contenir d'autres objets que le serveur en question
      */
-    fun restore(
-        server: Server,
-        file: File,
-        success: (() -> Unit),
-        failure: (() -> Unit)
-    ) {
-        try {
-            val backUp: BackUp = mapper.readValue(file, BackUp::class.java)
-            serverManager.delete(server) // supprime les données actuelles du serveur
-            val encodedId = Base64.encode(server.id)
-            val tempServer = backUp.servers.first { it.id == encodedId }
-            val tempMembers = backUp.members.filter {
-                it.serverID == encodedId
-            }
-            decodeServers(listOf(tempServer)) { // un par un pour éviter les bugs
-                decodeMembers(tempMembers) { // car les membres ont besoin d'avoir accès au server
-                    Log.info("LOAD", "Restore done ${file.name}")
-                    success()
-                }
-            }
-        } catch (e: Exception) {
-            working = false
-            Log.error("LOAD", "Restore $e")
-            failure()
-        }
-    }
+//    fun restore(
+//        server: Server,
+//        file: File,
+//        success: (() -> Unit),
+//        failure: (() -> Unit)
+//    ) {
+//        try {
+//            val backUp: BackUp = mapper.readValue(file, BackUp::class.java)
+//            serverManager.delete(server) // supprime les données actuelles du serveur
+//            val encodedId = Base64.encode(server.id)
+//            val tempServer = backUp.servers.first { it.id == encodedId }
+//            val tempMembers = backUp.members.filter {
+//                it.serverID == encodedId
+//            }
+//            decodeServers(listOf(tempServer)) { // un par un pour éviter les bugs
+//                decodeMembers(tempMembers) { // car les membres ont besoin d'avoir accès au server
+//                    Log.info("LOAD", "Restore done ${file.name}")
+//                    success()
+//                }
+//            }
+//        } catch (e: Exception) {
+//            working = false
+//            Log.error("LOAD", "Restore $e")
+//            failure()
+//        }
+//    }
 }

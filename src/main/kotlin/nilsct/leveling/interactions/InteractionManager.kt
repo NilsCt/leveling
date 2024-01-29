@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.events.interaction.component.GenericSelectMenuInterac
 import net.dv8tion.jda.api.exceptions.ErrorHandler
 import net.dv8tion.jda.api.interactions.commands.Command
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
-import net.dv8tion.jda.api.interactions.components.buttons.Button
 import nilsct.leveling.Bot.Companion.jda
 import nilsct.leveling.interactions.commands.CommandContext
 import nilsct.leveling.interactions.commands.Help
@@ -186,7 +185,6 @@ class InteractionManager {
 
     private fun test(interaction: Interaction, context: InteractionContext): Boolean {
         val content: String
-        val buttons = mutableListOf<Button>()
         val missingPermissions =
             if (context.isFromGuild) interaction.permission.filterNot { it in context.permissions } else emptyList()
         val botMissingPermissions =
@@ -212,7 +210,6 @@ class InteractionManager {
             else -> return true
         }
         val reply = context.reply(content)
-        if (buttons.isNotEmpty()) reply.addActionRow(buttons)
         reply.queue()
         return false
     }
